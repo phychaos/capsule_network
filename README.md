@@ -3,6 +3,7 @@
 ## Capsule network
 I tried to implement the idea in [Dynamic Routing Between Capsules](https://arxiv.org/abs/1710.09829)
 
+<img src="output/capsule.png">  
 <img src="output/capsNet.png">
 
 ### Reconstruction - Raw images

@@ -133,21 +133,22 @@ class CapsuleNet(object):
         return v
 
     @staticmethod
-    def margin_loss(raw_logits, labels, margin=0.4, down_weight=0.5):
+    def margin_loss(logits, labels, margin=0.9, down_weight=0.5):
         """
         折叶损失函数
-        :param raw_logits: batch * 10
+        :param logits: batch * 10
         :param labels:
         :param margin:
         :param down_weight:
         :return:
         """
-        logits = raw_logits - 0.5
-        positive_cost = labels * tf.cast(tf.less(logits, margin), tf.float32) * tf.pow(logits - margin, 2)
-        negative_cost = (1 - labels) * tf.cast(tf.greater(logits, -margin), tf.float32) * tf.pow(
-            logits + margin, 2)
+        # logits = raw_logits - 0.5
+        _margin = 1 - margin
 
-        margin_loss = 0.5 * positive_cost + 0.5 * down_weight * negative_cost
+        positive_cost = labels * tf.pow(tf.nn.relu(margin - logits), 2)
+        negative_cost = (1 - labels) * tf.pow(tf.nn.relu(logits - _margin), 2)
+
+        margin_loss = positive_cost + down_weight * negative_cost
         margin_loss = tf.reduce_mean(tf.reduce_sum(margin_loss, axis=1))
         return margin_loss
 

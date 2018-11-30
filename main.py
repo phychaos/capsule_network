@@ -86,7 +86,6 @@ def reconstruct_image():
         with sv.managed_session() as sess:
             checkpoint_path = tf.train.latest_checkpoint(MODEL_PATH)
             sv.saver.restore(sess, checkpoint_path)
-
             recon_image = sess.run(caps_model.decoded, feed_dict={caps_model.x: x_test})
             recon_image = np.reshape(recon_image, (para.batch_size, 28, 28, 1))
             x_test = np.reshape(x_test, (para.batch_size, 28, 28, 1))
@@ -101,5 +100,5 @@ def reconstruct_image():
 
 
 if __name__ == "__main__":
-    # tf.app.run()
-    reconstruct_image()
+    tf.app.run()
+    # reconstruct_image()
