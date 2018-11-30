@@ -1,0 +1,6 @@
+model_checkpoint_path: "/home/chaos/wjht/machine_learning/capsule_network/model/ckpt/model.ckpt"
+all_model_checkpoint_paths: "/home/chaos/wjht/machine_learning/capsule_network/model/ckpt/model_epoch_7_gs_2200"
+all_model_checkpoint_paths: "/home/chaos/wjht/machine_learning/capsule_network/model/ckpt/model_epoch_8_gs_2475"
+all_model_checkpoint_paths: "/home/chaos/wjht/machine_learning/capsule_network/model/ckpt/model_epoch_9_gs_2750"
+all_model_checkpoint_paths: "/home/chaos/wjht/machine_learning/capsule_network/model/ckpt/model_epoch_10_gs_3025"
+all_model_checkpoint_paths: "/home/chaos/wjht/machine_learning/capsule_network/model/ckpt/model.ckpt"
