@@ -97,14 +97,14 @@ class CapsuleNet(object):
         :return:
         """
         with tf.variable_scope("digit_caps"):
-            u = tf.reshape(inputs, [para.batch_size, 32 * 6 * 6, 1, 8, 1])
+            u = tf.reshape(inputs, [para.batch_size, 32 * 6 * 6, 1, 1, 8])
             u = tf.tile(u, [1, 1, num_caps, 1, 1])
             b_ij = tf.zeros((32 * 6 * 6, num_caps), name='b')
             w = tf.get_variable(name='weight', shape=[1, 32 * 6 * 6, num_caps, 8, 16],
                                 initializer=tf.truncated_normal_initializer(stddev=0.01))
             w = tf.tile(w, [para.batch_size, 1, 1, 1, 1])
 
-            u_hat = tf.matmul(u, w, transpose_a=True)  # u^T *w [1 × 8 ] dot [ 8 × 16] = 1 × 16
+            u_hat = tf.matmul(u, w)  # u^T *w [1 × 8 ] dot [ 8 × 16] = 1 × 16
             u_hat = tf.reshape(u_hat, [para.batch_size, 32 * 6 * 6, num_caps, 16])
             bias = tf.get_variable('bias', shape=[1, num_caps, 16], initializer=tf.constant_initializer(0.0))
             for r in range(num_iter):
@@ -142,9 +142,7 @@ class CapsuleNet(object):
         :param down_weight:
         :return:
         """
-        # logits = raw_logits - 0.5
         _margin = 1 - margin
-
         positive_cost = labels * tf.pow(tf.nn.relu(margin - logits), 2)
         negative_cost = (1 - labels) * tf.pow(tf.nn.relu(logits - _margin), 2)
 
